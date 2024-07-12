@@ -1,0 +1,42 @@
+<script>
+  const SHOPIFY = {
+    SHOP_URL: '{{ shop.url }}',
+    PRODUCT_ID: '{{ product.id }}',
+    PRODUCT_TITLE: `{{ product.title }}`,
+    CUSTOMER_EMAIL: '{{ customer.email | default: "null" }}',
+    PRODUCT_PRICE: '{{ product.price }}',
+    PRODUCT_URL: '{{ product.url }}',
+    CUSTOMER_ID: '{{ customer.id | default: null }}',
+  };
+  const baseUrl = 'https://50xh1w66-8000.inc1.devtunnels.ms';
+
+  const addScript = () => {
+    const head = document.getElementsByTagName('HEAD')[0];
+
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = baseUrl + '/static/style.css';
+
+    head.appendChild(link);
+
+    const s = document.createElement('script');
+    s.id = 'cashifyScript';
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = baseUrl + '/shopify/js/script.js';
+    const element = document.getElementsByTagName('script')[0];
+    element.parentNode.insertBefore(s, element);
+  };
+  addScript();
+</script>
+
+{% schema %}
+{
+  "name": "Demo Theme Extension",
+  "target": "body",
+  "enabled_on": {
+    "templates": ["collection", "product", "cart", "index", "list-collections", "page"]
+  }
+}
+{% endschema %}
